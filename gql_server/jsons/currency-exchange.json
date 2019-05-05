@@ -1,0 +1,42 @@
+{
+  "currencyExchange": [
+    {
+      "base": "EUR",
+      "rates": [
+        "NZD",
+        "BGN",
+        "ILS",
+        "RUB",
+        "CAD",
+        "USD",
+        "PHP",
+        "CHF",
+        "ZAR",
+        "AUD",
+        "JPY",
+        "TRY",
+        "HKD",
+        "MYR",
+        "THB",
+        "HRK",
+        "NOK",
+        "IDR",
+        "DKK",
+        "CZK",
+        "HUF",
+        "GBP",
+        "MXN",
+        "KRW",
+        "ISK",
+        "SGD",
+        "BRL",
+        "PLN",
+        "INR",
+        "RON",
+        "CNY",
+        "SEK"
+      ],
+      "date": "2019-05-03"
+    }
+  ]
+}
