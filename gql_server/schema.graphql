@@ -4,13 +4,21 @@ schema {
 
 type Query {
     currentCurrencies(currentCurrenciesInput:CurrentCurrenciesInput!): CurrentCurrencyRates!
-    historyCurrencies(startAt: Date,endAt: Date currencyCode: [CurrencyCode]): [HistoryCurrencyRates]!
+    historyCurrencies(historyCurrenciesInput: HistoryCurrenciesInput!): HistoryCurrencyRates!
 }
 
-input CurrentCurrenciesInput{
+input CurrentCurrenciesInput {
     base : CurrencyCode = EUR
     currencyCode: [CurrencyCode] = []
 }
+
+input HistoryCurrenciesInput {
+    base : CurrencyCode = EUR
+    currencyCode: [CurrencyCode] = []
+    startAt: Date
+    endAt: Date
+}
+
 
 type CurrentCurrencyRates {
     base: CurrencyCode
@@ -20,14 +28,24 @@ type CurrentCurrencyRates {
 
 type HistoryCurrencyRates{
     base: CurrencyCode
-    rates: [CurrencyRates]
+    rates: [HistoryCurrencyRate]
     startAt: Date
     endAt: Date
 }
 
+type HistoryCurrencyRate{
+    rate: [HistoryCurrency]
+    date: Date
+}
+
+type HistoryCurrency{
+    currency: CurrencyCode
+    ratio: Float
+}
+
 type CurrencyRates{
     currency: CurrencyCode
-    rate: Float
+    ratio: Float
     date: Date
 }
 

@@ -10,4 +10,4 @@ generates:
     config:
       scalars:
         Date: Date
-#      avoidOptionals: true
+      avoidOptionals: true

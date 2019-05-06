@@ -82,7 +82,10 @@ export type ResolversTypes = {
   CurrencyRates: CurrencyRates;
   Float: Scalars["Float"];
   Date: Scalars["Date"];
+  HistoryCurrenciesInput: HistoryCurrenciesInput;
   HistoryCurrencyRates: HistoryCurrencyRates;
+  HistoryCurrencyRate: HistoryCurrencyRate;
+  HistoryCurrency: HistoryCurrency;
   String: Scalars["String"];
   Boolean: Scalars["Boolean"];
   RestCountriesModel: RestCountriesModel;
@@ -106,141 +109,133 @@ export type CountryResolvers<
   ContextType = any,
   ParentType = ResolversTypes["Country"]
 > = {
-  name?: Resolver<Maybe<ResolversTypes["CoutryName"]>, ParentType, ContextType>;
-  topLevelDomain?: Resolver<
+  name: Resolver<Maybe<ResolversTypes["CoutryName"]>, ParentType, ContextType>;
+  topLevelDomain: Resolver<
     Maybe<ResolversTypes["String"]>,
     ParentType,
     ContextType
   >;
-  alpha2Code?: Resolver<
+  alpha2Code: Resolver<
     Maybe<ResolversTypes["Alpha2Code"]>,
     ParentType,
     ContextType
   >;
-  alpha3Code?: Resolver<
+  alpha3Code: Resolver<
     Maybe<ResolversTypes["Alpha3Code"]>,
     ParentType,
     ContextType
   >;
-  callingCodes?: Resolver<
+  callingCodes: Resolver<
     Maybe<Array<Maybe<ResolversTypes["String"]>>>,
     ParentType,
     ContextType
   >;
-  capital?: Resolver<
+  capital: Resolver<
     Maybe<ResolversTypes["CapitalName"]>,
     ParentType,
     ContextType
   >;
-  altSpellings?: Resolver<
+  altSpellings: Resolver<
     Maybe<Array<Maybe<ResolversTypes["String"]>>>,
     ParentType,
     ContextType
   >;
-  region?: Resolver<Maybe<ResolversTypes["Region"]>, ParentType, ContextType>;
-  subregion?: Resolver<
-    Maybe<ResolversTypes["String"]>,
-    ParentType,
-    ContextType
-  >;
-  population?: Resolver<
-    Maybe<ResolversTypes["Float"]>,
-    ParentType,
-    ContextType
-  >;
-  latlng?: Resolver<
+  region: Resolver<Maybe<ResolversTypes["Region"]>, ParentType, ContextType>;
+  subregion: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  population: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  latlng: Resolver<
     Maybe<Array<Maybe<ResolversTypes["Float"]>>>,
     ParentType,
     ContextType
   >;
-  demonym?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  area?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  gini?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  timezones?: Resolver<
+  demonym: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  area: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  gini: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  timezones: Resolver<
     Maybe<Array<Maybe<ResolversTypes["String"]>>>,
     ParentType,
     ContextType
   >;
-  borders?: Resolver<
+  borders: Resolver<
     Maybe<Array<Maybe<ResolversTypes["String"]>>>,
     ParentType,
     ContextType
   >;
-  nativeName?: Resolver<
+  nativeName: Resolver<
     Maybe<ResolversTypes["String"]>,
     ParentType,
     ContextType
   >;
-  numericCode?: Resolver<
+  numericCode: Resolver<
     Maybe<ResolversTypes["String"]>,
     ParentType,
     ContextType
   >;
-  currencies?: Resolver<
+  currencies: Resolver<
     Maybe<Array<Maybe<ResolversTypes["Currency"]>>>,
     ParentType,
     ContextType
   >;
-  languages?: Resolver<
+  languages: Resolver<
     Maybe<Array<Maybe<ResolversTypes["Language"]>>>,
     ParentType,
     ContextType
   >;
-  translations?: Resolver<
+  translations: Resolver<
     Maybe<ResolversTypes["Translations"]>,
     ParentType,
     ContextType
   >;
-  flag?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  regionalBlocs?: Resolver<
+  flag: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  regionalBlocs: Resolver<
     Maybe<Array<Maybe<ResolversTypes["RegionalBloc"]>>>,
     ParentType,
     ContextType
   >;
-  cioc?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  cioc: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
 };
 
 export type CurrencyResolvers<
   ContextType = any,
   ParentType = ResolversTypes["Currency"]
 > = {
-  code?: Resolver<
+  code: Resolver<
     Maybe<ResolversTypes["CurrencyCode"]>,
     ParentType,
     ContextType
   >;
-  name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  symbol?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  name: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  symbol: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
 };
 
 export type CurrencyRatesResolvers<
   ContextType = any,
   ParentType = ResolversTypes["CurrencyRates"]
 > = {
-  currency?: Resolver<
+  currency: Resolver<
     Maybe<ResolversTypes["CurrencyCode"]>,
     ParentType,
     ContextType
   >;
-  rate?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
-  date?: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
+  ratio: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  date: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
 };
 
 export type CurrentCurrencyRatesResolvers<
   ContextType = any,
   ParentType = ResolversTypes["CurrentCurrencyRates"]
 > = {
-  base?: Resolver<
+  base: Resolver<
     Maybe<ResolversTypes["CurrencyCode"]>,
     ParentType,
     ContextType
   >;
-  rates?: Resolver<
+  rates: Resolver<
     Maybe<Array<Maybe<ResolversTypes["CurrencyRates"]>>>,
     ParentType,
     ContextType
   >;
-  date?: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
+  date: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
 };
 
 export interface DateScalarConfig
@@ -248,32 +243,56 @@ export interface DateScalarConfig
   name: "Date";
 }
 
-export type HistoryCurrencyRatesResolvers<
+export type HistoryCurrencyResolvers<
   ContextType = any,
-  ParentType = ResolversTypes["HistoryCurrencyRates"]
+  ParentType = ResolversTypes["HistoryCurrency"]
 > = {
-  base?: Resolver<
+  currency: Resolver<
     Maybe<ResolversTypes["CurrencyCode"]>,
     ParentType,
     ContextType
   >;
-  rates?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["CurrencyRates"]>>>,
+  ratio: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+};
+
+export type HistoryCurrencyRateResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["HistoryCurrencyRate"]
+> = {
+  rate: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["HistoryCurrency"]>>>,
     ParentType,
     ContextType
   >;
-  startAt?: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
-  endAt?: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
+  date: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
+};
+
+export type HistoryCurrencyRatesResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["HistoryCurrencyRates"]
+> = {
+  base: Resolver<
+    Maybe<ResolversTypes["CurrencyCode"]>,
+    ParentType,
+    ContextType
+  >;
+  rates: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["HistoryCurrencyRate"]>>>,
+    ParentType,
+    ContextType
+  >;
+  startAt: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
+  endAt: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
 };
 
 export type LanguageResolvers<
   ContextType = any,
   ParentType = ResolversTypes["Language"]
 > = {
-  iso6391?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  iso6392?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  nativeName?: Resolver<
+  iso6391: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  iso6392: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  name: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  nativeName: Resolver<
     Maybe<ResolversTypes["String"]>,
     ParentType,
     ContextType
@@ -284,14 +303,14 @@ export type QueryResolvers<
   ContextType = any,
   ParentType = ResolversTypes["Query"]
 > = {
-  currentCurrencies?: Resolver<
+  currentCurrencies: Resolver<
     ResolversTypes["CurrentCurrencyRates"],
     ParentType,
     ContextType,
     QueryCurrentCurrenciesArgs
   >;
-  historyCurrencies?: Resolver<
-    Array<Maybe<ResolversTypes["HistoryCurrencyRates"]>>,
+  historyCurrencies: Resolver<
+    ResolversTypes["HistoryCurrencyRates"],
     ParentType,
     ContextType,
     QueryHistoryCurrenciesArgs
@@ -302,14 +321,14 @@ export type RegionalBlocResolvers<
   ContextType = any,
   ParentType = ResolversTypes["RegionalBloc"]
 > = {
-  acronym?: Resolver<Maybe<ResolversTypes["Acronym"]>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes["Name"]>, ParentType, ContextType>;
-  otherAcronyms?: Resolver<
+  acronym: Resolver<Maybe<ResolversTypes["Acronym"]>, ParentType, ContextType>;
+  name: Resolver<Maybe<ResolversTypes["Name"]>, ParentType, ContextType>;
+  otherAcronyms: Resolver<
     Maybe<Array<Maybe<ResolversTypes["OtherAcronym"]>>>,
     ParentType,
     ContextType
   >;
-  otherNames?: Resolver<
+  otherNames: Resolver<
     Maybe<Array<Maybe<ResolversTypes["OtherName"]>>>,
     ParentType,
     ContextType
@@ -320,7 +339,7 @@ export type RestCountriesModelResolvers<
   ContextType = any,
   ParentType = ResolversTypes["RestCountriesModel"]
 > = {
-  countries?: Resolver<
+  countries: Resolver<
     Maybe<Array<Maybe<ResolversTypes["Country"]>>>,
     ParentType,
     ContextType
@@ -331,30 +350,32 @@ export type TranslationsResolvers<
   ContextType = any,
   ParentType = ResolversTypes["Translations"]
 > = {
-  de?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  es?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  fr?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  ja?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  it?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  br?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  pt?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  nl?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  hr?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  fa?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  de: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  es: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  fr: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  ja: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  it: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  br: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  pt: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  nl: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  hr: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  fa: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
-  Country?: CountryResolvers<ContextType>;
-  Currency?: CurrencyResolvers<ContextType>;
-  CurrencyRates?: CurrencyRatesResolvers<ContextType>;
-  CurrentCurrencyRates?: CurrentCurrencyRatesResolvers<ContextType>;
-  Date?: GraphQLScalarType;
-  HistoryCurrencyRates?: HistoryCurrencyRatesResolvers<ContextType>;
-  Language?: LanguageResolvers<ContextType>;
-  Query?: QueryResolvers<ContextType>;
-  RegionalBloc?: RegionalBlocResolvers<ContextType>;
-  RestCountriesModel?: RestCountriesModelResolvers<ContextType>;
-  Translations?: TranslationsResolvers<ContextType>;
+  Country: CountryResolvers<ContextType>;
+  Currency: CurrencyResolvers<ContextType>;
+  CurrencyRates: CurrencyRatesResolvers<ContextType>;
+  CurrentCurrencyRates: CurrentCurrencyRatesResolvers<ContextType>;
+  Date: GraphQLScalarType;
+  HistoryCurrency: HistoryCurrencyResolvers<ContextType>;
+  HistoryCurrencyRate: HistoryCurrencyRateResolvers<ContextType>;
+  HistoryCurrencyRates: HistoryCurrencyRatesResolvers<ContextType>;
+  Language: LanguageResolvers<ContextType>;
+  Query: QueryResolvers<ContextType>;
+  RegionalBloc: RegionalBlocResolvers<ContextType>;
+  RestCountriesModel: RestCountriesModelResolvers<ContextType>;
+  Translations: TranslationsResolvers<ContextType>;
 };
 
 /**
@@ -1143,30 +1164,30 @@ export enum CapitalName {
 }
 
 export type Country = {
-  name?: Maybe<CoutryName>;
-  topLevelDomain?: Maybe<Scalars["String"]>;
-  alpha2Code?: Maybe<Alpha2Code>;
-  alpha3Code?: Maybe<Alpha3Code>;
-  callingCodes?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  capital?: Maybe<CapitalName>;
-  altSpellings?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  region?: Maybe<Region>;
-  subregion?: Maybe<Scalars["String"]>;
-  population?: Maybe<Scalars["Float"]>;
-  latlng?: Maybe<Array<Maybe<Scalars["Float"]>>>;
-  demonym?: Maybe<Scalars["String"]>;
-  area?: Maybe<Scalars["Float"]>;
-  gini?: Maybe<Scalars["Float"]>;
-  timezones?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  borders?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  nativeName?: Maybe<Scalars["String"]>;
-  numericCode?: Maybe<Scalars["String"]>;
-  currencies?: Maybe<Array<Maybe<Currency>>>;
-  languages?: Maybe<Array<Maybe<Language>>>;
-  translations?: Maybe<Translations>;
-  flag?: Maybe<Scalars["String"]>;
-  regionalBlocs?: Maybe<Array<Maybe<RegionalBloc>>>;
-  cioc?: Maybe<Scalars["String"]>;
+  name: Maybe<CoutryName>;
+  topLevelDomain: Maybe<Scalars["String"]>;
+  alpha2Code: Maybe<Alpha2Code>;
+  alpha3Code: Maybe<Alpha3Code>;
+  callingCodes: Maybe<Array<Maybe<Scalars["String"]>>>;
+  capital: Maybe<CapitalName>;
+  altSpellings: Maybe<Array<Maybe<Scalars["String"]>>>;
+  region: Maybe<Region>;
+  subregion: Maybe<Scalars["String"]>;
+  population: Maybe<Scalars["Float"]>;
+  latlng: Maybe<Array<Maybe<Scalars["Float"]>>>;
+  demonym: Maybe<Scalars["String"]>;
+  area: Maybe<Scalars["Float"]>;
+  gini: Maybe<Scalars["Float"]>;
+  timezones: Maybe<Array<Maybe<Scalars["String"]>>>;
+  borders: Maybe<Array<Maybe<Scalars["String"]>>>;
+  nativeName: Maybe<Scalars["String"]>;
+  numericCode: Maybe<Scalars["String"]>;
+  currencies: Maybe<Array<Maybe<Currency>>>;
+  languages: Maybe<Array<Maybe<Language>>>;
+  translations: Maybe<Translations>;
+  flag: Maybe<Scalars["String"]>;
+  regionalBlocs: Maybe<Array<Maybe<RegionalBloc>>>;
+  cioc: Maybe<Scalars["String"]>;
 };
 
 export enum CoutryName {
@@ -1423,9 +1444,9 @@ export enum CoutryName {
 }
 
 export type Currency = {
-  code?: Maybe<CurrencyCode>;
-  name?: Maybe<Scalars["String"]>;
-  symbol?: Maybe<Scalars["String"]>;
+  code: Maybe<CurrencyCode>;
+  name: Maybe<Scalars["String"]>;
+  symbol: Maybe<Scalars["String"]>;
 };
 
 export enum CurrencyCode {
@@ -1465,34 +1486,51 @@ export enum CurrencyCode {
 }
 
 export type CurrencyRates = {
-  currency?: Maybe<CurrencyCode>;
-  rate?: Maybe<Scalars["Float"]>;
-  date?: Maybe<Scalars["Date"]>;
+  currency: Maybe<CurrencyCode>;
+  ratio: Maybe<Scalars["Float"]>;
+  date: Maybe<Scalars["Date"]>;
 };
 
 export type CurrentCurrenciesInput = {
-  base?: Maybe<CurrencyCode>;
-  currencyCode?: Maybe<Array<Maybe<CurrencyCode>>>;
+  base: Maybe<CurrencyCode>;
+  currencyCode: Maybe<Array<Maybe<CurrencyCode>>>;
 };
 
 export type CurrentCurrencyRates = {
-  base?: Maybe<CurrencyCode>;
-  rates?: Maybe<Array<Maybe<CurrencyRates>>>;
-  date?: Maybe<Scalars["Date"]>;
+  base: Maybe<CurrencyCode>;
+  rates: Maybe<Array<Maybe<CurrencyRates>>>;
+  date: Maybe<Scalars["Date"]>;
+};
+
+export type HistoryCurrenciesInput = {
+  base: Maybe<CurrencyCode>;
+  currencyCode: Maybe<Array<Maybe<CurrencyCode>>>;
+  startAt: Maybe<Scalars["Date"]>;
+  endAt: Maybe<Scalars["Date"]>;
+};
+
+export type HistoryCurrency = {
+  currency: Maybe<CurrencyCode>;
+  ratio: Maybe<Scalars["Float"]>;
+};
+
+export type HistoryCurrencyRate = {
+  rate: Maybe<Array<Maybe<HistoryCurrency>>>;
+  date: Maybe<Scalars["Date"]>;
 };
 
 export type HistoryCurrencyRates = {
-  base?: Maybe<CurrencyCode>;
-  rates?: Maybe<Array<Maybe<CurrencyRates>>>;
-  startAt?: Maybe<Scalars["Date"]>;
-  endAt?: Maybe<Scalars["Date"]>;
+  base: Maybe<CurrencyCode>;
+  rates: Maybe<Array<Maybe<HistoryCurrencyRate>>>;
+  startAt: Maybe<Scalars["Date"]>;
+  endAt: Maybe<Scalars["Date"]>;
 };
 
 export type Language = {
-  iso6391?: Maybe<Scalars["String"]>;
-  iso6392?: Maybe<Scalars["String"]>;
-  name?: Maybe<Scalars["String"]>;
-  nativeName?: Maybe<Scalars["String"]>;
+  iso6391: Maybe<Scalars["String"]>;
+  iso6392: Maybe<Scalars["String"]>;
+  name: Maybe<Scalars["String"]>;
+  nativeName: Maybe<Scalars["String"]>;
 };
 
 export enum Name {
@@ -1541,7 +1579,7 @@ export enum OtherName {
 
 export type Query = {
   currentCurrencies: CurrentCurrencyRates;
-  historyCurrencies: Array<Maybe<HistoryCurrencyRates>>;
+  historyCurrencies: HistoryCurrencyRates;
 };
 
 export type QueryCurrentCurrenciesArgs = {
@@ -1549,9 +1587,7 @@ export type QueryCurrentCurrenciesArgs = {
 };
 
 export type QueryHistoryCurrenciesArgs = {
-  startAt?: Maybe<Scalars["Date"]>;
-  endAt?: Maybe<Scalars["Date"]>;
-  currencyCode?: Maybe<Array<Maybe<CurrencyCode>>>;
+  historyCurrenciesInput: HistoryCurrenciesInput;
 };
 
 export enum Region {
@@ -1565,25 +1601,25 @@ export enum Region {
 }
 
 export type RegionalBloc = {
-  acronym?: Maybe<Acronym>;
-  name?: Maybe<Name>;
-  otherAcronyms?: Maybe<Array<Maybe<OtherAcronym>>>;
-  otherNames?: Maybe<Array<Maybe<OtherName>>>;
+  acronym: Maybe<Acronym>;
+  name: Maybe<Name>;
+  otherAcronyms: Maybe<Array<Maybe<OtherAcronym>>>;
+  otherNames: Maybe<Array<Maybe<OtherName>>>;
 };
 
 export type RestCountriesModel = {
-  countries?: Maybe<Array<Maybe<Country>>>;
+  countries: Maybe<Array<Maybe<Country>>>;
 };
 
 export type Translations = {
-  de?: Maybe<Scalars["String"]>;
-  es?: Maybe<Scalars["String"]>;
-  fr?: Maybe<Scalars["String"]>;
-  ja?: Maybe<Scalars["String"]>;
-  it?: Maybe<Scalars["String"]>;
-  br?: Maybe<Scalars["String"]>;
-  pt?: Maybe<Scalars["String"]>;
-  nl?: Maybe<Scalars["String"]>;
-  hr?: Maybe<Scalars["String"]>;
-  fa?: Maybe<Scalars["String"]>;
+  de: Maybe<Scalars["String"]>;
+  es: Maybe<Scalars["String"]>;
+  fr: Maybe<Scalars["String"]>;
+  ja: Maybe<Scalars["String"]>;
+  it: Maybe<Scalars["String"]>;
+  br: Maybe<Scalars["String"]>;
+  pt: Maybe<Scalars["String"]>;
+  nl: Maybe<Scalars["String"]>;
+  hr: Maybe<Scalars["String"]>;
+  fa: Maybe<Scalars["String"]>;
 };
