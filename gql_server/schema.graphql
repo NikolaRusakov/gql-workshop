@@ -31,7 +31,7 @@ type CurrencyRates{
     date: Date
 }
 
-union CurrentOrHistoryRates=CurrentCurrencyRates | HistoryCurrencyRates
+#union CurrentOrHistoryRates=CurrentCurrencyRates | HistoryCurrencyRates
 
 scalar Date
 
