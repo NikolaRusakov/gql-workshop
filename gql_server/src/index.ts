@@ -22,17 +22,6 @@ export const Query: QueryResolvers = {
     },
     getWeatherForecastByCountry: async (_, args) => {
         const data = await getWeatherByLocation(args);
-        const res = {
-            location: {
-                woeid: 796597,
-                city: "Prague",
-                region: " Prague",
-                country: "Czech Republic",
-                lat: 50.079079,
-                long: 14.43322,
-                timezone_id: "Europe/Prague"
-            }
-        };
         return data as WeatherForecast
     }
 };
