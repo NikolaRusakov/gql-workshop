@@ -1,0 +1,76 @@
+#query MyFeed {
+#  feed {
+#    id
+#    commentCount
+#  }
+#}
+
+query Slovak{
+  slovak:getCountryByFullName(name:"Slova"){
+    name
+    topLevelDomain
+    alpha2Code
+    alpha3Code
+    capital
+    region
+    subregion
+    currencies{
+      code
+      name
+      symbol
+    }
+  }
+}
+
+query JeVedro {
+  jeVedro:getWeatherForecastByCountry(country:SK,city:Bratislava){
+    current_observation{
+      condition{
+        text
+        temperature
+      }
+      wind{
+        chill
+        direction
+        speed
+      }
+    }
+    forecasts{
+      day
+      text
+    }
+    location{
+      city
+      woeid
+      region
+      country
+      lat
+      long
+    }
+  }
+
+}
+
+query JakDrahy{
+  jakDrahy:currentCurrencies(currentCurrenciesInput:{currencyCode:[USD,CZK]}){
+    base
+    rates{
+      currency
+      ratio
+
+    }
+    date
+  }
+  #  historyCurrencies(historyCurrenciesInput:{base:CZK,currencyCode:[USD,EUR,CZK,RUB],startAt:"2006-01-01",endAt:"2019-04-04"}){
+  #  	base
+  #   startAt
+  #   endAt
+  #   rates{
+  #   date
+  #   rate {
+  #     ratio
+  #     currency
+  #   }
+  #   }
+  # }
+}

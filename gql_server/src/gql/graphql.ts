@@ -87,10 +87,7 @@ export type ResolversTypes = {
   HistoryCurrencyRate: HistoryCurrencyRate;
   HistoryCurrency: HistoryCurrency;
   String: Scalars["String"];
-  Boolean: Scalars["Boolean"];
-  RestCountriesModel: RestCountriesModel;
   Country: Country;
-  CoutryName: CoutryName;
   Alpha2Code: Alpha2Code;
   Alpha3Code: Alpha3Code;
   CapitalName: CapitalName;
@@ -103,15 +100,55 @@ export type ResolversTypes = {
   Name: Name;
   OtherAcronym: OtherAcronym;
   OtherName: OtherName;
+  WeatherForecast: WeatherForecast;
+  Location: Location;
+  Int: Scalars["Int"];
+  CurrentObservation: CurrentObservation;
+  Wind: Wind;
+  Atmosphere: Atmosphere;
+  Astronomy: Astronomy;
+  Condition: Condition;
+  WeatherCode: WeatherCode;
+  Forecast: Forecast;
+  Boolean: Scalars["Boolean"];
+  RestCountriesModel: RestCountriesModel;
+  CountryName: CountryName;
+};
+
+export type AstronomyResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["Astronomy"]
+> = {
+  sunrise: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  sunset: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+};
+
+export type AtmosphereResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["Atmosphere"]
+> = {
+  humidity: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  visibility: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  pressure: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  rising: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+};
+
+export type ConditionResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["Condition"]
+> = {
+  text: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  code: Resolver<Maybe<ResolversTypes["WeatherCode"]>, ParentType, ContextType>;
+  temperature: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
 };
 
 export type CountryResolvers<
   ContextType = any,
   ParentType = ResolversTypes["Country"]
 > = {
-  name: Resolver<Maybe<ResolversTypes["CoutryName"]>, ParentType, ContextType>;
+  name: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   topLevelDomain: Resolver<
-    Maybe<ResolversTypes["String"]>,
+    Maybe<Array<Maybe<ResolversTypes["String"]>>>,
     ParentType,
     ContextType
   >;
@@ -238,10 +275,45 @@ export type CurrentCurrencyRatesResolvers<
   date: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
 };
 
+export type CurrentObservationResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["CurrentObservation"]
+> = {
+  wind: Resolver<Maybe<ResolversTypes["Wind"]>, ParentType, ContextType>;
+  atmosphere: Resolver<
+    Maybe<ResolversTypes["Atmosphere"]>,
+    ParentType,
+    ContextType
+  >;
+  astronomy: Resolver<
+    Maybe<ResolversTypes["Astronomy"]>,
+    ParentType,
+    ContextType
+  >;
+  condition: Resolver<
+    Maybe<ResolversTypes["Condition"]>,
+    ParentType,
+    ContextType
+  >;
+  pubDate: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+};
+
 export interface DateScalarConfig
   extends GraphQLScalarTypeConfig<ResolversTypes["Date"], any> {
   name: "Date";
 }
+
+export type ForecastResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["Forecast"]
+> = {
+  day: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  date: Resolver<Maybe<ResolversTypes["Date"]>, ParentType, ContextType>;
+  low: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  high: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  text: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  code: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+};
 
 export type HistoryCurrencyResolvers<
   ContextType = any,
@@ -299,6 +371,23 @@ export type LanguageResolvers<
   >;
 };
 
+export type LocationResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["Location"]
+> = {
+  woeid: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  city: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  region: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  country: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  lat: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  long: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  timezone_id: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+};
+
 export type QueryResolvers<
   ContextType = any,
   ParentType = ResolversTypes["Query"]
@@ -314,6 +403,18 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     QueryHistoryCurrenciesArgs
+  >;
+  getCountryByFullName: Resolver<
+    Maybe<Array<ResolversTypes["Country"]>>,
+    ParentType,
+    ContextType,
+    QueryGetCountryByFullNameArgs
+  >;
+  getWeatherForecastByCountry: Resolver<
+    Maybe<ResolversTypes["WeatherForecast"]>,
+    ParentType,
+    ContextType,
+    QueryGetWeatherForecastByCountryArgs
   >;
 };
 
@@ -362,20 +463,58 @@ export type TranslationsResolvers<
   fa: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
 };
 
+export type WeatherForecastResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["WeatherForecast"]
+> = {
+  location: Resolver<
+    Maybe<ResolversTypes["Location"]>,
+    ParentType,
+    ContextType
+  >;
+  current_observation: Resolver<
+    Maybe<ResolversTypes["CurrentObservation"]>,
+    ParentType,
+    ContextType
+  >;
+  forecasts: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Forecast"]>>>,
+    ParentType,
+    ContextType
+  >;
+};
+
+export type WindResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["Wind"]
+> = {
+  chill: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  direction: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  speed: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
+  Astronomy: AstronomyResolvers<ContextType>;
+  Atmosphere: AtmosphereResolvers<ContextType>;
+  Condition: ConditionResolvers<ContextType>;
   Country: CountryResolvers<ContextType>;
   Currency: CurrencyResolvers<ContextType>;
   CurrencyRates: CurrencyRatesResolvers<ContextType>;
   CurrentCurrencyRates: CurrentCurrencyRatesResolvers<ContextType>;
+  CurrentObservation: CurrentObservationResolvers<ContextType>;
   Date: GraphQLScalarType;
+  Forecast: ForecastResolvers<ContextType>;
   HistoryCurrency: HistoryCurrencyResolvers<ContextType>;
   HistoryCurrencyRate: HistoryCurrencyRateResolvers<ContextType>;
   HistoryCurrencyRates: HistoryCurrencyRatesResolvers<ContextType>;
   Language: LanguageResolvers<ContextType>;
+  Location: LocationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
   RegionalBloc: RegionalBlocResolvers<ContextType>;
   RestCountriesModel: RestCountriesModelResolvers<ContextType>;
   Translations: TranslationsResolvers<ContextType>;
+  WeatherForecast: WeatherForecastResolvers<ContextType>;
+  Wind: WindResolvers<ContextType>;
 };
 
 /**
@@ -383,8 +522,10 @@ export type Resolvers<ContextType = any> = {
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
  */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
-
-export type Maybe<T> = T | null;
+import { CountryName } from "../../types/rest-countries.model";
+import { Capital as CapitalName } from "../../types/rest-countries.model";
+import { WeatherCode } from "../../types/weather-forecast.model";
+export type Maybe<T> = T | null | undefined;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -917,255 +1058,27 @@ export enum Alpha3Code {
   Zwe = "ZWE"
 }
 
-export enum CapitalName {
-  Kabul = "Kabul",
-  Mariehamn = "Mariehamn",
-  Tirana = "Tirana",
-  Algiers = "Algiers",
-  PagoPago = "PagoPago",
-  AndorraLaVella = "AndorraLaVella",
-  Luanda = "Luanda",
-  TheValley = "TheValley",
-  SaintJohns = "SaintJohns",
-  BuenosAires = "BuenosAires",
-  Yerevan = "Yerevan",
-  Oranjestad = "Oranjestad",
-  Canberra = "Canberra",
-  Vienna = "Vienna",
-  Baku = "Baku",
-  Nassau = "Nassau",
-  Manama = "Manama",
-  Dhaka = "Dhaka",
-  Bridgetown = "Bridgetown",
-  Minsk = "Minsk",
-  Brussels = "Brussels",
-  Belmopan = "Belmopan",
-  PortoNovo = "PortoNovo",
-  Hamilton = "Hamilton",
-  Thimphu = "Thimphu",
-  Sucre = "Sucre",
-  Kralendijk = "Kralendijk",
-  Sarajevo = "Sarajevo",
-  Gaborone = "Gaborone",
-  Brasilia = "Brasilia",
-  DiegoGarcia = "DiegoGarcia",
-  RoadTown = "RoadTown",
-  CharlotteAmalie = "CharlotteAmalie",
-  BandarSeriBegawan = "BandarSeriBegawan",
-  Sofia = "Sofia",
-  Ouagadougou = "Ouagadougou",
-  Bujumbura = "Bujumbura",
-  PhnomPenh = "PhnomPenh",
-  Yaounde = "Yaounde",
-  Ottawa = "Ottawa",
-  Praia = "Praia",
-  GeorgeTown = "GeorgeTown",
-  Bangui = "Bangui",
-  NDjamena = "NDjamena",
-  Santiago = "Santiago",
-  Beijing = "Beijing",
-  FlyingFishCove = "FlyingFishCove",
-  WestIsland = "WestIsland",
-  Bogota = "Bogota",
-  Moroni = "Moroni",
-  Brazzaville = "Brazzaville",
-  Kinshasa = "Kinshasa",
-  Avarua = "Avarua",
-  SanJose = "SanJose",
-  Zagreb = "Zagreb",
-  Havana = "Havana",
-  Willemstad = "Willemstad",
-  Nicosia = "Nicosia",
-  Prague = "Prague",
-  Copenhagen = "Copenhagen",
-  Djibouti = "Djibouti",
-  Roseau = "Roseau",
-  SantoDomingo = "SantoDomingo",
-  Quito = "Quito",
-  Cairo = "Cairo",
-  SanSalvador = "SanSalvador",
-  Malabo = "Malabo",
-  Asmara = "Asmara",
-  Tallinn = "Tallinn",
-  AddisAbaba = "AddisAbaba",
-  Stanley = "Stanley",
-  Torshavn = "Torshavn",
-  Suva = "Suva",
-  Helsinki = "Helsinki",
-  Paris = "Paris",
-  Cayenne = "Cayenne",
-  Papeete = "Papeete",
-  PortAuxFrancais = "PortAuxFrancais",
-  Libreville = "Libreville",
-  Banjul = "Banjul",
-  Tbilisi = "Tbilisi",
-  Berlin = "Berlin",
-  Accra = "Accra",
-  Gibraltar = "Gibraltar",
-  Athens = "Athens",
-  Nuuk = "Nuuk",
-  StGeorges = "StGeorges",
-  BasseTerre = "BasseTerre",
-  Hagatna = "Hagatna",
-  GuatemalaCity = "GuatemalaCity",
-  StPeterPort = "StPeterPort",
-  Conakry = "Conakry",
-  Bissau = "Bissau",
-  Georgetown = "Georgetown",
-  PortAuPrince = "PortAuPrince",
-  Rome = "Rome",
-  Tegucigalpa = "Tegucigalpa",
-  CityOfVictoria = "CityOfVictoria",
-  Budapest = "Budapest",
-  Reykjavik = "Reykjavik",
-  NewDelhi = "NewDelhi",
-  Jakarta = "Jakarta",
-  Yamoussoukro = "Yamoussoukro",
-  Tehran = "Tehran",
-  Baghdad = "Baghdad",
-  Dublin = "Dublin",
-  Douglas = "Douglas",
-  Jerusalem = "Jerusalem",
-  Tokyo = "Tokyo",
-  SaintHelier = "SaintHelier",
-  Amman = "Amman",
-  Astana = "Astana",
-  Nairobi = "Nairobi",
-  SouthTarawa = "SouthTarawa",
-  KuwaitCity = "KuwaitCity",
-  Bishkek = "Bishkek",
-  Vientiane = "Vientiane",
-  Riga = "Riga",
-  Beirut = "Beirut",
-  Maseru = "Maseru",
-  Monrovia = "Monrovia",
-  Tripoli = "Tripoli",
-  Vaduz = "Vaduz",
-  Vilnius = "Vilnius",
-  Luxembourg = "Luxembourg",
-  Skopje = "Skopje",
-  Antananarivo = "Antananarivo",
-  Lilongwe = "Lilongwe",
-  KualaLumpur = "KualaLumpur",
-  Male = "Male",
-  Bamako = "Bamako",
-  Valletta = "Valletta",
-  Majuro = "Majuro",
-  FortDeFrance = "FortDeFrance",
-  Nouakchott = "Nouakchott",
-  PortLouis = "PortLouis",
-  Mamoudzou = "Mamoudzou",
-  MexicoCity = "MexicoCity",
-  Palikir = "Palikir",
-  Chisinau = "Chisinau",
-  Monaco = "Monaco",
-  UlanBator = "UlanBator",
-  Podgorica = "Podgorica",
-  Plymouth = "Plymouth",
-  Rabat = "Rabat",
-  Maputo = "Maputo",
-  Naypyidaw = "Naypyidaw",
-  Windhoek = "Windhoek",
-  Yaren = "Yaren",
-  Kathmandu = "Kathmandu",
-  Amsterdam = "Amsterdam",
-  Noumea = "Noumea",
-  Wellington = "Wellington",
-  Managua = "Managua",
-  Niamey = "Niamey",
-  Abuja = "Abuja",
-  Alofi = "Alofi",
-  Kingston = "Kingston",
-  Pyongyang = "Pyongyang",
-  Saipan = "Saipan",
-  Oslo = "Oslo",
-  Muscat = "Muscat",
-  Islamabad = "Islamabad",
-  Ngerulmud = "Ngerulmud",
-  Ramallah = "Ramallah",
-  PanamaCity = "PanamaCity",
-  PortMoresby = "PortMoresby",
-  Asuncion = "Asuncion",
-  Lima = "Lima",
-  Manila = "Manila",
-  Adamstown = "Adamstown",
-  Warsaw = "Warsaw",
-  Lisbon = "Lisbon",
-  SanJuan = "SanJuan",
-  Doha = "Doha",
-  Pristina = "Pristina",
-  SaintDenis = "SaintDenis",
-  Bucharest = "Bucharest",
-  Moscow = "Moscow",
-  Kigali = "Kigali",
-  Gustavia = "Gustavia",
-  Jamestown = "Jamestown",
-  Basseterre = "Basseterre",
-  Castries = "Castries",
-  Marigot = "Marigot",
-  SaintPierre = "SaintPierre",
-  Kingstown = "Kingstown",
-  Apia = "Apia",
-  CityOfSanMarino = "CityOfSanMarino",
-  SaoTome = "SaoTome",
-  Riyadh = "Riyadh",
-  Dakar = "Dakar",
-  Belgrade = "Belgrade",
-  Victoria = "Victoria",
-  Freetown = "Freetown",
-  Singapore = "Singapore",
-  Philipsburg = "Philipsburg",
-  Bratislava = "Bratislava",
-  Ljubljana = "Ljubljana",
-  Honiara = "Honiara",
-  Mogadishu = "Mogadishu",
-  Pretoria = "Pretoria",
-  KingEdwardPoint = "KingEdwardPoint",
-  Seoul = "Seoul",
-  Juba = "Juba",
-  Madrid = "Madrid",
-  Colombo = "Colombo",
-  Khartoum = "Khartoum",
-  Paramaribo = "Paramaribo",
-  Longyearbyen = "Longyearbyen",
-  Lobamba = "Lobamba",
-  Stockholm = "Stockholm",
-  Bern = "Bern",
-  Damascus = "Damascus",
-  Taipei = "Taipei",
-  Dushanbe = "Dushanbe",
-  Dodoma = "Dodoma",
-  Bangkok = "Bangkok",
-  Dili = "Dili",
-  Lome = "Lome",
-  Fakaofo = "Fakaofo",
-  Nukualofa = "Nukualofa",
-  PortOfSpain = "PortOfSpain",
-  Tunis = "Tunis",
-  Ankara = "Ankara",
-  Ashgabat = "Ashgabat",
-  CockburnTown = "CockburnTown",
-  Funafuti = "Funafuti",
-  Kampala = "Kampala",
-  Kiev = "Kiev",
-  AbuDhabi = "AbuDhabi",
-  London = "London",
-  WashingtonDc = "WashingtonDC",
-  Montevideo = "Montevideo",
-  Tashkent = "Tashkent",
-  PortVila = "PortVila",
-  Caracas = "Caracas",
-  Hanoi = "Hanoi",
-  MataUtu = "MataUtu",
-  ElAaiun = "ElAaiun",
-  Sanaa = "Sanaa",
-  Lusaka = "Lusaka",
-  Harare = "Harare"
-}
+export type Astronomy = {
+  sunrise: Maybe<Scalars["String"]>;
+  sunset: Maybe<Scalars["String"]>;
+};
+
+export type Atmosphere = {
+  humidity: Maybe<Scalars["Float"]>;
+  visibility: Maybe<Scalars["Float"]>;
+  pressure: Maybe<Scalars["Float"]>;
+  rising: Maybe<Scalars["Float"]>;
+};
+
+export type Condition = {
+  text: Maybe<Scalars["String"]>;
+  code: Maybe<WeatherCode>;
+  temperature: Maybe<Scalars["Int"]>;
+};
 
 export type Country = {
-  name: Maybe<CoutryName>;
-  topLevelDomain: Maybe<Scalars["String"]>;
+  name: Maybe<Scalars["String"]>;
+  topLevelDomain: Maybe<Array<Maybe<Scalars["String"]>>>;
   alpha2Code: Maybe<Alpha2Code>;
   alpha3Code: Maybe<Alpha3Code>;
   callingCodes: Maybe<Array<Maybe<Scalars["String"]>>>;
@@ -1189,259 +1102,6 @@ export type Country = {
   regionalBlocs: Maybe<Array<Maybe<RegionalBloc>>>;
   cioc: Maybe<Scalars["String"]>;
 };
-
-export enum CoutryName {
-  Afghanistan = "Afghanistan",
-  AlandIslands = "AlandIslands",
-  Albania = "Albania",
-  Algeria = "Algeria",
-  AmericanSamoa = "AmericanSamoa",
-  Andorra = "Andorra",
-  Angola = "Angola",
-  Anguilla = "Anguilla",
-  Antarctica = "Antarctica",
-  AntiguaAndBarbuda = "AntiguaAndBarbuda",
-  Argentina = "Argentina",
-  Armenia = "Armenia",
-  Aruba = "Aruba",
-  Australia = "Australia",
-  Austria = "Austria",
-  Azerbaijan = "Azerbaijan",
-  Bahamas = "Bahamas",
-  Bahrain = "Bahrain",
-  Bangladesh = "Bangladesh",
-  Barbados = "Barbados",
-  Belarus = "Belarus",
-  Belgium = "Belgium",
-  Belize = "Belize",
-  Benin = "Benin",
-  Bermuda = "Bermuda",
-  Bhutan = "Bhutan",
-  Bolivia = "Bolivia",
-  BonaireSintEustatiusAndSaba = "BonaireSintEustatiusAndSaba",
-  BosniaAndHerzegovina = "BosniaAndHerzegovina",
-  Botswana = "Botswana",
-  BouvetIsland = "BouvetIsland",
-  Brazil = "Brazil",
-  BritishIndianOceanTerritory = "BritishIndianOceanTerritory",
-  UnitedStatesMinorOutlyingIslands = "UnitedStatesMinorOutlyingIslands",
-  VirginIslands = "VirginIslands",
-  VirginIslandsUs = "VirginIslandsUS",
-  BruneiDarussalam = "BruneiDarussalam",
-  Bulgaria = "Bulgaria",
-  BurkinaFaso = "BurkinaFaso",
-  Burundi = "Burundi",
-  Cambodia = "Cambodia",
-  Cameroon = "Cameroon",
-  Canada = "Canada",
-  CaboVerde = "CaboVerde",
-  CaymanIslands = "CaymanIslands",
-  CentralAfricanRepublic = "CentralAfricanRepublic",
-  Chad = "Chad",
-  Chile = "Chile",
-  China = "China",
-  ChristmasIsland = "ChristmasIsland",
-  CocosIslands = "CocosIslands",
-  Colombia = "Colombia",
-  Comoros = "Comoros",
-  Congo = "Congo",
-  CongoRep = "CongoRep",
-  CookIslands = "CookIslands",
-  CostaRica = "CostaRica",
-  Croatia = "Croatia",
-  Cuba = "Cuba",
-  Curacao = "Curacao",
-  Cyprus = "Cyprus",
-  CzechRepublic = "CzechRepublic",
-  Denmark = "Denmark",
-  Djibouti = "Djibouti",
-  Dominica = "Dominica",
-  DominicanRepublic = "DominicanRepublic",
-  Ecuador = "Ecuador",
-  Egypt = "Egypt",
-  ElSalvador = "ElSalvador",
-  EquatorialGuinea = "EquatorialGuinea",
-  Eritrea = "Eritrea",
-  Estonia = "Estonia",
-  Ethiopia = "Ethiopia",
-  FalklandIslands = "FalklandIslands",
-  FaroeIslands = "FaroeIslands",
-  Fiji = "Fiji",
-  Finland = "Finland",
-  France = "France",
-  FrenchGuiana = "FrenchGuiana",
-  FrenchPolynesia = "FrenchPolynesia",
-  FrenchSouthernTerritories = "FrenchSouthernTerritories",
-  Gabon = "Gabon",
-  Gambia = "Gambia",
-  Georgia = "Georgia",
-  Germany = "Germany",
-  Ghana = "Ghana",
-  Gibraltar = "Gibraltar",
-  Greece = "Greece",
-  Greenland = "Greenland",
-  Grenada = "Grenada",
-  Guadeloupe = "Guadeloupe",
-  Guam = "Guam",
-  Guatemala = "Guatemala",
-  Guernsey = "Guernsey",
-  Guinea = "Guinea",
-  GuineaBissau = "GuineaBissau",
-  Guyana = "Guyana",
-  Haiti = "Haiti",
-  HeardIslandAndMcDonaldIslands = "HeardIslandAndMcDonaldIslands",
-  HolySee = "HolySee",
-  Honduras = "Honduras",
-  HongKong = "HongKong",
-  Hungary = "Hungary",
-  Iceland = "Iceland",
-  India = "India",
-  Indonesia = "Indonesia",
-  CoteDIvoire = "CoteDIvoire",
-  Iran = "Iran",
-  Iraq = "Iraq",
-  Ireland = "Ireland",
-  IsleOfMan = "IsleOfMan",
-  Israel = "Israel",
-  Italy = "Italy",
-  Jamaica = "Jamaica",
-  Japan = "Japan",
-  Jersey = "Jersey",
-  Jordan = "Jordan",
-  Kazakhstan = "Kazakhstan",
-  Kenya = "Kenya",
-  Kiribati = "Kiribati",
-  Kuwait = "Kuwait",
-  Kyrgyzstan = "Kyrgyzstan",
-  LaoPeoplesDemocraticRepublic = "LaoPeoplesDemocraticRepublic",
-  Latvia = "Latvia",
-  Lebanon = "Lebanon",
-  Lesotho = "Lesotho",
-  Liberia = "Liberia",
-  Libya = "Libya",
-  Liechtenstein = "Liechtenstein",
-  Lithuania = "Lithuania",
-  Luxembourg = "Luxembourg",
-  Macao = "Macao",
-  Macedonia = "Macedonia",
-  Madagascar = "Madagascar",
-  Malawi = "Malawi",
-  Malaysia = "Malaysia",
-  Maldives = "Maldives",
-  Mali = "Mali",
-  Malta = "Malta",
-  MarshallIslands = "MarshallIslands",
-  Martinique = "Martinique",
-  Mauritania = "Mauritania",
-  Mauritius = "Mauritius",
-  Mayotte = "Mayotte",
-  Mexico = "Mexico",
-  Micronesia = "Micronesia",
-  Moldova = "Moldova",
-  Monaco = "Monaco",
-  Mongolia = "Mongolia",
-  Montenegro = "Montenegro",
-  Montserrat = "Montserrat",
-  Morocco = "Morocco",
-  Mozambique = "Mozambique",
-  Myanmar = "Myanmar",
-  Namibia = "Namibia",
-  Nauru = "Nauru",
-  Nepal = "Nepal",
-  Netherlands = "Netherlands",
-  NewCaledonia = "NewCaledonia",
-  NewZealand = "NewZealand",
-  Nicaragua = "Nicaragua",
-  Niger = "Niger",
-  Nigeria = "Nigeria",
-  Niue = "Niue",
-  NorfolkIsland = "NorfolkIsland",
-  Korea = "Korea",
-  NorthernMarianaIslands = "NorthernMarianaIslands",
-  Norway = "Norway",
-  Oman = "Oman",
-  Pakistan = "Pakistan",
-  Palau = "Palau",
-  PalestineStateOf = "PalestineStateOf",
-  Panama = "Panama",
-  PapuaNewGuinea = "PapuaNewGuinea",
-  Paraguay = "Paraguay",
-  Peru = "Peru",
-  Philippines = "Philippines",
-  Pitcairn = "Pitcairn",
-  Poland = "Poland",
-  Portugal = "Portugal",
-  PuertoRico = "PuertoRico",
-  Qatar = "Qatar",
-  RepublicOfKosovo = "RepublicOfKosovo",
-  Reunion = "Reunion",
-  Romania = "Romania",
-  RussianFederation = "RussianFederation",
-  Rwanda = "Rwanda",
-  SaintBarthelemy = "SaintBarthelemy",
-  SaintHelenaAscensionAndTristanDaCunha = "SaintHelenaAscensionAndTristanDaCunha",
-  SaintKittsAndNevis = "SaintKittsAndNevis",
-  SaintLucia = "SaintLucia",
-  SaintMartin = "SaintMartin",
-  SaintPierreAndMiquelon = "SaintPierreAndMiquelon",
-  SaintVincentAndTheGrenadines = "SaintVincentAndTheGrenadines",
-  Samoa = "Samoa",
-  SanMarino = "SanMarino",
-  SaoTomeAndPrincipe = "SaoTomeAndPrincipe",
-  SaudiArabia = "SaudiArabia",
-  Senegal = "Senegal",
-  Serbia = "Serbia",
-  Seychelles = "Seychelles",
-  SierraLeone = "SierraLeone",
-  Singapore = "Singapore",
-  SintMaarten = "SintMaarten",
-  Slovakia = "Slovakia",
-  Slovenia = "Slovenia",
-  SolomonIslands = "SolomonIslands",
-  Somalia = "Somalia",
-  SouthAfrica = "SouthAfrica",
-  SouthGeorgiaAndTheSouthSandwichIslands = "SouthGeorgiaAndTheSouthSandwichIslands",
-  KoreaRep = "KoreaRep",
-  SouthSudan = "SouthSudan",
-  Spain = "Spain",
-  SriLanka = "SriLanka",
-  Sudan = "Sudan",
-  Suriname = "Suriname",
-  SvalbardAndJanMayen = "SvalbardAndJanMayen",
-  Swaziland = "Swaziland",
-  Sweden = "Sweden",
-  Switzerland = "Switzerland",
-  SyrianArabRepublic = "SyrianArabRepublic",
-  Taiwan = "Taiwan",
-  Tajikistan = "Tajikistan",
-  TanzaniaUnitedRepublicOf = "TanzaniaUnitedRepublicOf",
-  Thailand = "Thailand",
-  TimorLeste = "TimorLeste",
-  Togo = "Togo",
-  Tokelau = "Tokelau",
-  Tonga = "Tonga",
-  TrinidadAndTobago = "TrinidadAndTobago",
-  Tunisia = "Tunisia",
-  Turkey = "Turkey",
-  Turkmenistan = "Turkmenistan",
-  TurksAndCaicosIslands = "TurksAndCaicosIslands",
-  Tuvalu = "Tuvalu",
-  Uganda = "Uganda",
-  Ukraine = "Ukraine",
-  UnitedArabEmirates = "UnitedArabEmirates",
-  UnitedKingdomOfGreatBritainAndNorthernIreland = "UnitedKingdomOfGreatBritainAndNorthernIreland",
-  UnitedStatesOfAmerica = "UnitedStatesOfAmerica",
-  Uruguay = "Uruguay",
-  Uzbekistan = "Uzbekistan",
-  Vanuatu = "Vanuatu",
-  Venezuela = "Venezuela",
-  VietNam = "VietNam",
-  WallisAndFutuna = "WallisAndFutuna",
-  WesternSahara = "WesternSahara",
-  Yemen = "Yemen",
-  Zambia = "Zambia",
-  Zimbabwe = "Zimbabwe"
-}
 
 export type Currency = {
   code: Maybe<CurrencyCode>;
@@ -1502,6 +1162,23 @@ export type CurrentCurrencyRates = {
   date: Maybe<Scalars["Date"]>;
 };
 
+export type CurrentObservation = {
+  wind: Maybe<Wind>;
+  atmosphere: Maybe<Atmosphere>;
+  astronomy: Maybe<Astronomy>;
+  condition: Maybe<Condition>;
+  pubDate: Maybe<Scalars["Int"]>;
+};
+
+export type Forecast = {
+  day: Maybe<Scalars["String"]>;
+  date: Maybe<Scalars["Date"]>;
+  low: Maybe<Scalars["Int"]>;
+  high: Maybe<Scalars["Int"]>;
+  text: Maybe<Scalars["String"]>;
+  code: Maybe<Scalars["Int"]>;
+};
+
 export type HistoryCurrenciesInput = {
   base: Maybe<CurrencyCode>;
   currencyCode: Maybe<Array<Maybe<CurrencyCode>>>;
@@ -1531,6 +1208,16 @@ export type Language = {
   iso6392: Maybe<Scalars["String"]>;
   name: Maybe<Scalars["String"]>;
   nativeName: Maybe<Scalars["String"]>;
+};
+
+export type Location = {
+  woeid: Maybe<Scalars["Int"]>;
+  city: Maybe<Scalars["String"]>;
+  region: Maybe<Scalars["String"]>;
+  country: Maybe<Scalars["String"]>;
+  lat: Maybe<Scalars["Float"]>;
+  long: Maybe<Scalars["Float"]>;
+  timezone_id: Maybe<Scalars["String"]>;
 };
 
 export enum Name {
@@ -1580,6 +1267,8 @@ export enum OtherName {
 export type Query = {
   currentCurrencies: CurrentCurrencyRates;
   historyCurrencies: HistoryCurrencyRates;
+  getCountryByFullName: Maybe<Array<Country>>;
+  getWeatherForecastByCountry: Maybe<WeatherForecast>;
 };
 
 export type QueryCurrentCurrenciesArgs = {
@@ -1588,6 +1277,15 @@ export type QueryCurrentCurrenciesArgs = {
 
 export type QueryHistoryCurrenciesArgs = {
   historyCurrenciesInput: HistoryCurrenciesInput;
+};
+
+export type QueryGetCountryByFullNameArgs = {
+  name: Scalars["String"];
+};
+
+export type QueryGetWeatherForecastByCountryArgs = {
+  country: Alpha2Code;
+  city: Maybe<CapitalName>;
 };
 
 export enum Region {
@@ -1622,4 +1320,16 @@ export type Translations = {
   nl: Maybe<Scalars["String"]>;
   hr: Maybe<Scalars["String"]>;
   fa: Maybe<Scalars["String"]>;
+};
+
+export type WeatherForecast = {
+  location: Maybe<Location>;
+  current_observation: Maybe<CurrentObservation>;
+  forecasts: Maybe<Array<Maybe<Forecast>>>;
+};
+
+export type Wind = {
+  chill: Maybe<Scalars["Int"]>;
+  direction: Maybe<Scalars["Int"]>;
+  speed: Maybe<Scalars["Float"]>;
 };

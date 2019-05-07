@@ -3,8 +3,15 @@ import {
     CurrencyCode,
     CurrentCurrenciesInput,
     CurrentCurrencyRates,
-    CurrencyRates, HistoryCurrenciesInput, HistoryCurrencyRates, HistoryCurrencyRate, HistoryCurrency
+    CurrencyRates,
+    HistoryCurrenciesInput,
+    HistoryCurrencyRates,
+    HistoryCurrencyRate,
+    Country,
+    WeatherForecast, QueryGetWeatherForecastByCountryArgs
 } from "../gql/graphql";
+
+const OAuth = require('oauth');
 
 const exchange = axios.create({
     baseURL: 'https://api.exchangeratesapi.io',
@@ -13,6 +20,54 @@ const exchange = axios.create({
 const restCountries = axios.create({
     baseURL: 'https://restcountries.eu/rest/v2',
 });
+
+const header = {
+    "X-Yahoo-App-Id": ""
+};
+const request = new OAuth.OAuth(
+    null,
+    null,
+    '',
+    '',
+    '1.0',
+    null,
+    'HMAC-SHA1',
+    null,
+    header
+);
+
+export const getWeatherByLocation = async ({city, country}: QueryGetWeatherForecastByCountryArgs): Promise<WeatherForecast> => {
+    return await new Promise(
+        (resolve, reject) => {
+            request.get(
+                `https://weather-ydn-yql.media.yahoo.com/forecastrss?location=${city},${country}&format=json`,
+                null,
+                null,
+                function (err: any, data: any, result: any) {
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                    } else {
+                        console.log(data);
+                        resolve(JSON.parse(data));
+                    }
+                })
+        });
+};
+
+export const getCountryByName = async (input: String): Promise<Country[]> => {
+    try {
+        const {data} = await restCountries.get<Country[]>(`/name/${input}`, {
+            params: {
+                fulltext: true
+            }
+        });
+        return data;
+    } catch (e) {
+        console.error(e);
+        throw new Error(e)
+    }
+};
 
 export const getCurrentCurrencies = async ({currencyCode, base: baseInput}: CurrentCurrenciesInput): Promise<CurrentCurrencyRates> => {
     const currencyArr = currencyCode as CurrencyCode[];

@@ -11,3 +11,9 @@ generates:
       scalars:
         Date: Date
       avoidOptionals: true
+
+      enumValues:
+        CountryName: ../../types/rest-countries.model#CountryName
+        CapitalName: ../../types/rest-countries.model#Capital
+        WeatherCode: ../../types/weather-forecast.model#WeatherCode
+      maybeValue: T | null | undefined

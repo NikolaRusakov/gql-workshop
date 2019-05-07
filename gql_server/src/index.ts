@@ -1,11 +1,11 @@
 import {
     CurrentCurrenciesInput,
     HistoryCurrenciesInput,
-    QueryResolvers
+    QueryResolvers, WeatherForecast
 } from "./gql/graphql";
 import {ApolloServer} from 'apollo-server';
 import {IResolvers} from 'graphql-tools';
-import {getCurrentCurrencies, getHistoricCurrencies} from "./api/requests";
+import {getCountryByName, getCurrentCurrencies, getHistoricCurrencies, getWeatherByLocation} from "./api/requests";
 
 const {importSchema} = require('graphql-import');
 const typeDefs = importSchema('./schema.graphql');
@@ -16,6 +16,24 @@ export const Query: QueryResolvers = {
     },
     historyCurrencies: async (_, args) => {
         return await getHistoricCurrencies(args.historyCurrenciesInput as HistoryCurrenciesInput);
+    },
+    getCountryByFullName: async (_, args) => {
+        return await getCountryByName(args.name);
+    },
+    getWeatherForecastByCountry: async (_, args) => {
+        const data = await getWeatherByLocation(args);
+        const res = {
+            location: {
+                woeid: 796597,
+                city: "Prague",
+                region: " Prague",
+                country: "Czech Republic",
+                lat: 50.079079,
+                long: 14.43322,
+                timezone_id: "Europe/Prague"
+            }
+        };
+        return data as WeatherForecast
     }
 };
 
