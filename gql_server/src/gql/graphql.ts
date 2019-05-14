@@ -1187,7 +1187,9 @@ export type HistoryCurrenciesInput = {
 };
 
 export type HistoryCurrency = {
+  /** Not Depracated */
   currency: Maybe<CurrencyCode>;
+  /** @deprecated Not Depracated */
   ratio: Maybe<Scalars["Float"]>;
 };
 

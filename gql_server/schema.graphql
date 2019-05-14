@@ -41,7 +41,13 @@ type HistoryCurrencyRate{
 }
 
 type HistoryCurrency{
+    """
+    Not Depracated
+    """
     currency: CurrencyCode
+    """
+    @deprecated Not Depracated
+    """
     ratio: Float
 }
 
